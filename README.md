@@ -33,3 +33,19 @@ Change the value for `syslog_server` in file `group_vars/nodes.yml` to point to 
 ```shell
 ansible-playbook site.yml -i production -v
 ```
+
+## Remedies
+
+ACCT-9622
+ACCT-9626
+ACCT-9632
+AUTH-9230
+AUTH-9328
+BANN-7126
+BANN-7130
+HTTP-6640
+KRNL-6000
+LOGG-2154
+PKGS-7346
+PKGS-7370
+STRG-1846
