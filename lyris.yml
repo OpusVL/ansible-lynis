@@ -1,0 +1,9 @@
+---
+# Lyris Hardening Fixes
+
+- name: Lyris Hardening Fixes
+  hosts: nodes
+  become: yes
+  become_method: sudo
+  roles:
+    - lynis-role

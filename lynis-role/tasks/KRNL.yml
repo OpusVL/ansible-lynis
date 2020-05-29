@@ -1,0 +1,18 @@
+---
+- name: Update limits.conf - soft core
+  lineinfile:
+    path: /etc/security/limits.conf
+    line: '* soft core 0'
+    regexp: '^\*\s+soft\s+core\s+0$'
+    insertbefore: '^#\sEnd\sof\sfile'
+    create: yes
+    state: present
+
+- name: Update limits.conf - hard core
+  lineinfile:
+    path: /etc/security/limits.conf
+    line: '* hard core 0'
+    regexp: '^\*\s+hard\s+core\s+0$'
+    insertbefore: '^#\sEnd\sof\sfile'
+    create: yes
+    state: present    

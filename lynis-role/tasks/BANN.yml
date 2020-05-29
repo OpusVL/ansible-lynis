@@ -1,0 +1,10 @@
+---
+- name: BANN-7126 Banners
+  copy:
+    dest: /etc/issue
+    content: 'Unauthorised access to this machine is prohibited and all the activities are logged. Disconnect now if you are not authorised.'
+
+- name: BANN-7130 Banners
+  copy:
+    dest: /etc/issue.net
+    content: 'Unauthorised access to this machine is prohibited and all the activities are logged. Disconnect now if you are not authorised.'

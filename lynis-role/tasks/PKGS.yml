@@ -1,0 +1,11 @@
+---
+# Debian Specific
+- name: PKGS-7370 debsums, PKGS-7394 apt-show-versions, ACCT-9622 acct
+  apt:
+    name: debsums, apt-show-versions, acct
+    state: present
+
+- name: ACCT-9622 acct, ACCT-9626 sysstat, ACCT-9632 auditd, FINT-4350 aide, HRDN-7230 chkrootkit
+  package:
+    name: acct, sysstat, auditd, aide, chkrootkit
+    state: present    

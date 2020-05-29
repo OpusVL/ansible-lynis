@@ -1,0 +1,13 @@
+---
+# tasks file for lynis-role
+- name: KRNL
+  import_tasks: KRNL.yml
+
+- name: PKGS Packages
+  import_tasks: PKGS.yml
+
+- name: BANN Banners
+  import_tasks: BANN.yml
+
+- name: ACCT Accounting
+  import_tasks: ACCT.yml  

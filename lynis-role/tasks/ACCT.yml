@@ -1,0 +1,25 @@
+---
+- name: ACCT-9622 Enable process accounting
+  service:
+    name: acct
+    enabled: yes
+    state: started
+
+- name: ACCT-9626 sysstat collecting accounting
+  service:
+    name: sysstat
+    enabled: yes
+    state: started
+
+- name: ACCT-9626 sysstat enabled
+  lineinfile: 
+    path: /etc/default/sysstat
+    line: 'ENABLED="true"'    
+    regexp: '^ENABLED='
+    state: present
+
+- name: ACCT-9632 auditd configured
+  service:
+    name: auditd
+    enabled: yes
+    state: started    
