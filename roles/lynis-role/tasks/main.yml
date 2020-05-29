@@ -18,6 +18,8 @@
 - name: SSH Secure Shell Daemon
   import_tasks: SSH.yml  
 
-
 - name: AUTH Authentication
   import_tasks: AUTH.yml  
+
+- name: STRG Storage Devices
+  import_tasks: STRG.yml  

@@ -7,6 +7,7 @@
     regexp: '^AllowTcpForwarding'
     insertafter: '\$OpenBSD'
     state: present
+  register: sshd
 
 - name: SSH-7408 ClientAliveCountMax
   lineinfile:
@@ -15,6 +16,7 @@
     regexp: '^ClientAliveCountMax'
     insertafter: '\$OpenBSD'
     state: present
+  register: sshd
     
 - name: SSH-7408 Compression
   lineinfile:
@@ -23,6 +25,7 @@
     regexp: '^Compression'
     insertafter: '\$OpenBSD'
     state: present
+  register: sshd
   
 - name: SSH-7408 LogLevel
   lineinfile:
@@ -31,6 +34,7 @@
     regexp: '^LogLevel'
     insertafter: '\$OpenBSD'
     state: present
+  register: sshd
     
 - name: SSH-7408 MaxAuthTries
   lineinfile:
@@ -39,6 +43,7 @@
     regexp: '^MaxAuthTries'
     insertafter: '\$OpenBSD'
     state: present
+  register: sshd
     
 - name: SSH-7408 MaxSessions
   lineinfile:
@@ -47,6 +52,7 @@
     regexp: '^MaxSessions'
     insertafter: '\$OpenBSD'
     state: present
+  register: sshd
       
 - name: SSH-7408 TCPKeepAlive
   lineinfile:
@@ -55,6 +61,7 @@
     regexp: '^TCPKeepAlive'
     insertafter: '\$OpenBSD'
     state: present
+  register: sshd
       
 - name: SSH-7408 X11Forwarding
   lineinfile:
@@ -63,6 +70,7 @@
     regexp: '^X11Forwarding'
     insertafter: '\$OpenBSD'
     state: present
+  register: sshd
     
 - name: SSH-7408 AllowAgentForwarding
   lineinfile:
@@ -71,6 +79,7 @@
     regexp: '^AllowAgentForwarding'
     insertafter: '\$OpenBSD'
     state: present              
+  register: sshd
 
 - name: SSH-7408 Port
   lineinfile:
@@ -79,8 +88,10 @@
     regexp: '^Port'
     insertafter: '\$OpenBSD'
     state: present 
+  register: sshd
         
 - name: Restart SSHD
   service:
     name: sshd
     state: restarted
+  when: sshd.changed

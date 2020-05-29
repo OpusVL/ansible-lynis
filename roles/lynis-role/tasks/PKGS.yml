@@ -1,11 +1,58 @@
 ---
+# Purge old packages first so there's no old configs
+- name: PKGS-7346 Purge old/removed packages
+  package:
+    name: "{{ item }}"
+    state: absent
+    purge: yes
+  with_lines:
+    - "dpkg --list | grep ^rc | awk '{ print $2; }'"
+
+- name: Gather the package facts - we'll need these later
+  package_facts:
+    manager: auto
+
 # Debian Specific
 - name: PKGS-7370 debsums, PKGS-7394 apt-show-versions, ACCT-9622 acct
   apt:
     name: debsums, apt-show-versions, acct
     state: present
 
-- name: ACCT-9622 acct, ACCT-9626 sysstat, ACCT-9632 auditd, FINT-4350 aide, HRDN-7230 chkrootkit
+- name: ACCT-9622 acct, ACCT-9626 sysstat, ACCT-9632 auditd, FINT-4350 aide, HRDN-7230 chkrootkit, HRDN-7230|Harden the system by installing at least one malware scanner
   package:
-    name: acct, sysstat, auditd, aide, chkrootkit
+    name: acct, sysstat, auditd, aide, chkrootkit, clamav, clamav-daemon
     state: present    
+
+- name: ClamAV Daemons Active
+  service:
+    name: "{{ item }}"
+    state: started
+  with_items:
+    - "clamav-daemon"
+    - "clamav-freshclam"
+
+- name: HTTP-6640 Install Apache mod_evasive, HTTP-6643 Install Apache modsecurity
+  package:
+    name:
+      - libapache2-mod-evasive
+      - libapache2-mod-security2
+    state: present
+  register: apache2
+  when: "'apache2' in ansible_facts.packages"
+
+- name: Restart Apache2
+  service:
+    name: apache2
+    state: restarted
+  when: apache2.changed
+
+  # ONT-8104|Run 'docker info' to see warnings
+- name: Enable IPv4 forwarding if Docker installed
+  sysctl: 
+    name: "{{ item }}"
+    value: "1"
+    state: present
+    reload: yes
+  with_items:
+    - net.ipv4.conf.all.forwarding
+  when: "'docker-ce' in ansible_facts.packages"

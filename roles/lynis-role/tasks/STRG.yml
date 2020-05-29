@@ -1,0 +1,8 @@
+---
+- name: STRG-1846 |Disable drivers like firewire storage when not used
+  lineinfile:
+    path: /etc/modprobe.d/blacklist.conf
+    line: 'blacklist firewire_core'
+    regexp:  '^blacklist firewire_core'
+    state: present
+
