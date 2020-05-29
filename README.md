@@ -26,7 +26,9 @@ This required the installation of the package `acct` and the service needed to b
 
 ## Usage
 
-Edit the `production` file and change the `[nodes]` section to include the systems(s) you want the tasks carried out on.
+Edit the `production` file and change the `[nodes]` section to include the system(s) you want the tasks carried out on.
+
+Change the value for `syslog_server` in file `group_vars/nodes.yml` to point to the name of your syslog server. The default is just `log`. Logging will be sent to the external log server and recorded locally.
 
 ```shell
 ansible-playbook site.yml -i production -v

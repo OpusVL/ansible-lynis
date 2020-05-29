@@ -16,3 +16,18 @@
     insertbefore: '^#\sEnd\sof\sfile'
     create: yes
     state: present    
+
+- name: KRNL-6000 net.ipv6.conf.all.accept_redirects
+  sysctl: 
+    name: "{{ item }}"
+    value: "0"
+    state: present
+    reload: yes
+  with_items:
+    - kernel.sysrq
+    - net.ipv4.conf.all.forwarding
+    - net.ipv4.conf.default.accept_source_route
+    - net.ipv4.conf.all.send_redirects
+    - net.ipv4.conf.default.accept_redirects
+    - net.ipv6.conf.all.accept_redirects
+    - net.ipv6.conf.default.accept_redirects

@@ -1,0 +1,86 @@
+---
+#  SSH-7408 | Consider hardening SSH configuration
+- name: SSH-7408 AllowTcpForwarding
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'AllowTcpForwarding no'
+    regexp: '^AllowTcpForwarding'
+    insertafter: '\$OpenBSD'
+    state: present
+
+- name: SSH-7408 ClientAliveCountMax
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'ClientAliveCountMax 2'
+    regexp: '^ClientAliveCountMax'
+    insertafter: '\$OpenBSD'
+    state: present
+    
+- name: SSH-7408 Compression
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'Compression no'
+    regexp: '^Compression'
+    insertafter: '\$OpenBSD'
+    state: present
+  
+- name: SSH-7408 LogLevel
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'LogLevel VERBOSE'
+    regexp: '^LogLevel'
+    insertafter: '\$OpenBSD'
+    state: present
+    
+- name: SSH-7408 MaxAuthTries
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'MaxAuthTries 3'
+    regexp: '^MaxAuthTries'
+    insertafter: '\$OpenBSD'
+    state: present
+    
+- name: SSH-7408 MaxSessions
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'MaxSessions 2'
+    regexp: '^MaxSessions'
+    insertafter: '\$OpenBSD'
+    state: present
+      
+- name: SSH-7408 TCPKeepAlive
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'TCPKeepAlive no'
+    regexp: '^TCPKeepAlive'
+    insertafter: '\$OpenBSD'
+    state: present
+      
+- name: SSH-7408 X11Forwarding
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'X11Forwarding no'
+    regexp: '^X11Forwarding'
+    insertafter: '\$OpenBSD'
+    state: present
+    
+- name: SSH-7408 AllowAgentForwarding
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'AllowAgentForwarding no'
+    regexp: '^AllowAgentForwarding'
+    insertafter: '\$OpenBSD'
+    state: present              
+
+- name: SSH-7408 Port
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'Port 22'
+    regexp: '^Port'
+    insertafter: '\$OpenBSD'
+    state: present 
+        
+- name: Restart SSHD
+  service:
+    name: sshd
+    state: restarted

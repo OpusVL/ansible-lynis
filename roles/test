@@ -1,0 +1,101 @@
+Module                  Size  Used by
+tcp_diag               16384  0
+udp_diag               16384  0
+inet_diag              20480  2 tcp_diag,udp_diag
+binfmt_misc            20480  1
+xt_conntrack           16384  4
+ipt_MASQUERADE         16384  4
+nf_conntrack_netlink    49152  0
+xfrm_user              40960  1
+xfrm_algo              16384  1 xfrm_user
+nft_counter            16384  39
+xt_addrtype            16384  2
+nft_compat             20480  10
+nft_chain_nat_ipv4     16384  4
+nf_nat_ipv4            16384  2 ipt_MASQUERADE,nft_chain_nat_ipv4
+nf_nat                 36864  1 nf_nat_ipv4
+nf_conntrack          172032  5 xt_conntrack,nf_nat,ipt_MASQUERADE,nf_nat_ipv4,nf_conntrack_netlink
+nf_defrag_ipv6         20480  1 nf_conntrack
+nf_defrag_ipv4         16384  1 nf_conntrack
+libcrc32c              16384  2 nf_conntrack,nf_nat
+nf_tables             143360  141 nft_compat,nft_chain_nat_ipv4,nft_counter
+nfnetlink              16384  4 nft_compat,nf_conntrack_netlink,nf_tables
+br_netfilter           24576  0
+bridge                188416  1 br_netfilter
+stp                    16384  1 bridge
+llc                    16384  2 bridge,stp
+aufs                  274432  0
+overlay               131072  0
+kvm_intel             233472  0
+kvm                   749568  1 kvm_intel
+irqbypass              16384  1 kvm
+crct10dif_pclmul       16384  0
+crc32_pclmul           16384  0
+ghash_clmulni_intel    16384  0
+snd_hda_codec_generic    86016  1
+snd_hda_intel          49152  0
+qxl                    77824  1
+snd_hda_codec         151552  2 snd_hda_codec_generic,snd_hda_intel
+ttm                   131072  1 qxl
+snd_hda_core           94208  3 snd_hda_codec_generic,snd_hda_intel,snd_hda_codec
+snd_hwdep              16384  1 snd_hda_codec
+snd_pcm               114688  3 snd_hda_intel,snd_hda_codec,snd_hda_core
+serio_raw              16384  0
+snd_timer              36864  1 snd_pcm
+pcspkr                 16384  0
+drm_kms_helper        208896  1 qxl
+snd                    94208  6 snd_hda_codec_generic,snd_hwdep,snd_hda_intel,snd_hda_codec,snd_timer,snd_pcm
+iTCO_wdt               16384  0
+sg                     36864  0
+iTCO_vendor_support    16384  1 iTCO_wdt
+soundcore              16384  1 snd
+drm                   495616  4 drm_kms_helper,qxl,ttm
+joydev                 24576  0
+virtio_balloon         20480  0
+virtio_console         32768  0
+qemu_fw_cfg            16384  0
+button                 16384  0
+evdev                  28672  2
+virtio_rng             16384  0
+rng_core               16384  1 virtio_rng
+ip_tables              28672  0
+x_tables               45056  5 xt_conntrack,nft_compat,ipt_MASQUERADE,xt_addrtype,ip_tables
+autofs4                49152  2
+ext4                  741376  3
+crc16                  16384  1 ext4
+mbcache                16384  1 ext4
+jbd2                  122880  1 ext4
+crc32c_generic         16384  0
+fscrypto               32768  1 ext4
+ecb                    16384  0
+hid_generic            16384  0
+usbhid                 57344  0
+hid                   135168  2 usbhid,hid_generic
+dm_mod                155648  9
+sr_mod                 28672  0
+cdrom                  65536  1 sr_mod
+crc32c_intel           24576  6
+ahci                   40960  0
+libahci                40960  1 ahci
+aesni_intel           200704  1
+libata                270336  2 libahci,ahci
+virtio_blk             20480  3
+xhci_pci               16384  0
+virtio_net             53248  0
+net_failover           20480  1 virtio_net
+failover               16384  1 net_failover
+aes_x86_64             20480  1 aesni_intel
+psmouse               172032  0
+crypto_simd            16384  1 aesni_intel
+cryptd                 28672  3 crypto_simd,ghash_clmulni_intel,aesni_intel
+glue_helper            16384  1 aesni_intel
+xhci_hcd              266240  1 xhci_pci
+i2c_i801               28672  0
+scsi_mod              249856  3 libata,sg,sr_mod
+usbcore               294912  3 xhci_hcd,usbhid,xhci_pci
+lpc_ich                28672  0
+mfd_core               16384  1 lpc_ich
+usb_common             16384  1 usbcore
+virtio_pci             28672  0
+virtio_ring            28672  6 virtio_rng,virtio_console,virtio_balloon,virtio_pci,virtio_blk,virtio_net
+virtio                 16384  6 virtio_rng,virtio_console,virtio_balloon,virtio_pci,virtio_blk,virtio_net

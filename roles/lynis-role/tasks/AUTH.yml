@@ -1,0 +1,17 @@
+---
+- name: AUTH-9230 Configure maximum encryption algorithm rounds
+  lineinfile:
+    path: /etc/login.defs
+    line: '{{ item }} 5000'
+    regexp: '^{{ item }}'
+    state: present
+  with_items:
+    - SHA_CRYPT_MIN_ROUNDS
+    - SHA_CRYPT_MAX_ROUNDS
+
+- name: AUTH-9328 Default umask    
+  lineinfile:
+    path: /etc/login.defs
+    line: 'UMASK 027'
+    regexp: '^UMASK'
+    state: present

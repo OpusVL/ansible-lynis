@@ -1,0 +1,13 @@
+######### Enable On-Disk queues for remote logging ##########
+
+# An on-disk queue is created for this action. If the remote host is
+# down, messages are spooled to disk and sent when it is up again.
+
+$WorkDirectory /var/spool/rsyslog # where to place spool files
+$ActionQueueFileName uniqName     # unique name prefix for spool files
+$ActionQueueMaxDiskSpace 100M     # space limit
+$ActionQueueSaveOnShutdown on     # save messages to disk on shutdown
+$ActionQueueType LinkedList       # run asynchronously
+$ActionResumeRetryCount -1        # infinite retries if host is down
+
+*.*	  @{{ syslog_server }}

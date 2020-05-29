@@ -10,4 +10,14 @@
   import_tasks: BANN.yml
 
 - name: ACCT Accounting
-  import_tasks: ACCT.yml  
+  import_tasks: ACCT.yml
+
+- name: LOGG Logging
+  import_tasks: LOGG.yml
+
+- name: SSH Secure Shell Daemon
+  import_tasks: SSH.yml  
+
+
+- name: AUTH Authentication
+  import_tasks: AUTH.yml  
