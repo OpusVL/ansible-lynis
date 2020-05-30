@@ -1,10 +1,12 @@
 ---
 # tasks file for lynis-role
-- name: KRNL
-  import_tasks: KRNL.yml
 
+# Run packages first so we can use the package_facts in other tasks
 - name: PKGS Packages
   import_tasks: PKGS.yml
+
+- name: KRNL
+  import_tasks: KRNL.yml
 
 - name: BANN Banners
   import_tasks: BANN.yml

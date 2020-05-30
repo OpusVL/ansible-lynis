@@ -15,3 +15,17 @@
     line: 'UMASK 027'
     regexp: '^UMASK'
     state: present
+
+- name: AUTH-9286 Configure maximum password age
+  lineinfile:
+    path: /etc/login.defs
+    line: 'PASS_MAX_DAYS 365'
+    regexp: '^PASS_MAX_DAYS'
+    state: present    
+
+- name: AUTH-9286 Configure minumum password age
+  lineinfile:
+    path: /etc/login.defs
+    line: 'PASS_MIN_DAYS 10'
+    regexp: '^PASS_MIN_DAYS'
+    state: present        

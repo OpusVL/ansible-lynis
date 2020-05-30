@@ -1,2 +1,12 @@
 ---
 # handlers file for lynis-role
+
+- name: restart sshd
+  service:
+    name: sshd
+    state: restarted
+
+- name: restart rsyslog
+  service:
+    name: rsyslog
+    state: restarted    

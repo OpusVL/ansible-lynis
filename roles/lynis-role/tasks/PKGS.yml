@@ -46,13 +46,13 @@
     state: restarted
   when: apache2.changed
 
-  # ONT-8104|Run 'docker info' to see warnings
-- name: Enable IPv4 forwarding if Docker installed
-  sysctl: 
-    name: "{{ item }}"
-    value: "1"
-    state: present
-    reload: yes
-  with_items:
-    - net.ipv4.conf.all.forwarding
-  when: "'docker-ce' in ansible_facts.packages"
+#   # ONT-8104|Run 'docker info' to see warnings
+# - name: Enable IPv4 forwarding if Docker installed
+#   sysctl: 
+#     name: "{{ item }}"
+#     value: "1"
+#     state: present
+#     reload: yes
+#   with_items:
+#     - net.ipv4.conf.all.forwarding
+#   when: "'docker-ce' in ansible_facts.packages"

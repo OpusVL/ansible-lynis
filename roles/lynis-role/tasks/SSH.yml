@@ -1,5 +1,8 @@
 ---
 #  SSH-7408 | Consider hardening SSH configuration
+
+# A Setting of "no" will prevent connections with VSCode
+# If you need to override this you should use a Match in sshd_config
 - name: SSH-7408 AllowTcpForwarding
   lineinfile:
     path: /etc/ssh/sshd_config
@@ -8,6 +11,8 @@
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
+  notify:
+    - restart sshd
 
 - name: SSH-7408 ClientAliveCountMax
   lineinfile:
@@ -17,6 +22,8 @@
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
+  notify:
+    - restart sshd  
     
 - name: SSH-7408 Compression
   lineinfile:
@@ -26,7 +33,9 @@
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
-  
+  notify:
+    - restart sshd
+
 - name: SSH-7408 LogLevel
   lineinfile:
     path: /etc/ssh/sshd_config
@@ -35,7 +44,9 @@
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
-    
+  notify:
+    - restart sshd
+
 - name: SSH-7408 MaxAuthTries
   lineinfile:
     path: /etc/ssh/sshd_config
@@ -44,7 +55,9 @@
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
-    
+  notify:
+    - restart sshd
+
 - name: SSH-7408 MaxSessions
   lineinfile:
     path: /etc/ssh/sshd_config
@@ -53,7 +66,9 @@
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
-      
+  notify:
+    - restart sshd
+
 - name: SSH-7408 TCPKeepAlive
   lineinfile:
     path: /etc/ssh/sshd_config
@@ -62,7 +77,9 @@
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
-      
+  notify:
+    - restart sshd
+
 - name: SSH-7408 X11Forwarding
   lineinfile:
     path: /etc/ssh/sshd_config
@@ -71,7 +88,9 @@
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
-    
+  notify:
+    - restart sshd
+
 - name: SSH-7408 AllowAgentForwarding
   lineinfile:
     path: /etc/ssh/sshd_config
@@ -80,6 +99,8 @@
     insertafter: '\$OpenBSD'
     state: present              
   register: sshd
+  notify:
+    - restart sshd
 
 - name: SSH-7408 Port
   lineinfile:
@@ -89,9 +110,5 @@
     insertafter: '\$OpenBSD'
     state: present 
   register: sshd
-        
-- name: Restart SSHD
-  service:
-    name: sshd
-    state: restarted
-  when: sshd.changed
+  notify:
+    - restart sshd
