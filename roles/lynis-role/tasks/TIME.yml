@@ -1,0 +1,28 @@
+---
+# Time Services
+
+- name: Disable Default Entries
+  lineinfile:
+    path: /etc/ntp.conf
+    line: "#{{ item }}"
+    regexp: "^{{ item }}"
+  with_items:
+    - "pool 0.debian.pool.ntp.org iburst"
+    - "pool 1.debian.pool.ntp.org iburst"
+    - "pool 2.debian.pool.ntp.org iburst"
+    - "pool 3.debian.pool.ntp.org iburst"
+  notify:
+    - restart ntp
+
+- name: TIME-3120 Add ntp pool entries
+  lineinfile:
+    path: /etc/ntp.conf
+    line: "{{ item }}"
+    regexp: "^[#]?{{ item }}"
+  with_items:
+    - "pool 0.pool.ntp.org"
+    - "pool 1.pool.ntp.org"
+    - "pool 2.pool.ntp.org"
+    - "pool 3.pool.ntp.org"
+  notify:
+    - restart ntp

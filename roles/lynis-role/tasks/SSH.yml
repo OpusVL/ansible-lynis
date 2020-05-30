@@ -7,7 +7,7 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'AllowTcpForwarding no'
-    regexp: '^AllowTcpForwarding'
+    regexp: '^[#]?AllowTcpForwarding'
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
@@ -18,7 +18,7 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'ClientAliveCountMax 2'
-    regexp: '^ClientAliveCountMax'
+    regexp: '^[#]?ClientAliveCountMax'
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
@@ -29,7 +29,7 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'Compression no'
-    regexp: '^Compression'
+    regexp: '^[#]?Compression'
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
@@ -40,7 +40,7 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'LogLevel VERBOSE'
-    regexp: '^LogLevel'
+    regexp: '^[#]?LogLevel'
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
@@ -51,7 +51,7 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'MaxAuthTries 3'
-    regexp: '^MaxAuthTries'
+    regexp: '^[#]?MaxAuthTries'
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
@@ -62,7 +62,7 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'MaxSessions 2'
-    regexp: '^MaxSessions'
+    regexp: '^[#]?MaxSessions'
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
@@ -73,7 +73,7 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'TCPKeepAlive no'
-    regexp: '^TCPKeepAlive'
+    regexp: '^[#]?TCPKeepAlive'
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
@@ -84,7 +84,7 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'X11Forwarding no'
-    regexp: '^X11Forwarding'
+    regexp: '^[#]?X11Forwarding'
     insertafter: '\$OpenBSD'
     state: present
   register: sshd
@@ -95,7 +95,7 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'AllowAgentForwarding no'
-    regexp: '^AllowAgentForwarding'
+    regexp: '^[#]?AllowAgentForwarding'
     insertafter: '\$OpenBSD'
     state: present              
   register: sshd
@@ -106,9 +106,20 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'Port 22'
-    regexp: '^Port'
+    regexp: '^[#]?Port\W+'
     insertafter: '\$OpenBSD'
     state: present 
+  register: sshd
+  notify:
+    - restart sshd
+
+- name: SSH-7408 PermitRootLogin
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'PermitRootLogin prohibit-password'
+    regexp: '^[#]?PermitRootLogin'
+    insertafter: '\$OpenBSD'
+    state: present
   register: sshd
   notify:
     - restart sshd

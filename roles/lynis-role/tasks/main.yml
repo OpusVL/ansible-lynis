@@ -18,10 +18,13 @@
   import_tasks: LOGG.yml
 
 - name: SSH Secure Shell Daemon
-  import_tasks: SSH.yml  
+  import_tasks: SSH.yml
 
 - name: AUTH Authentication
-  import_tasks: AUTH.yml  
+  import_tasks: AUTH.yml
 
 - name: STRG Storage Devices
-  import_tasks: STRG.yml  
+  import_tasks: STRG.yml
+
+- name: TIME Time Services
+  import_tasks: TIME.yml

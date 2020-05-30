@@ -41,4 +41,10 @@
     - { name: net.ipv4.conf.default.accept_redirects, value: "0" }
     - { name: net.ipv6.conf.all.accept_redirects, value: "0" }
     - { name: net.ipv6.conf.default.accept_redirects, value: "0" }
+    - { name: kernel.yama.ptrace_scope, value: "2" }
+    - { name: kernel.kptr_restrict, value: "2" }
+    - { name: kernel.core_uses_pid, value: "1" }
+    - { name: net.ipv4.conf.all.log_martians, value: "1" }
+    - { name: net.ipv4.conf.default.log_martians, value: "1" }
+    - { name: net.ipv4.conf.all.rp_filter, value: "1" }
 
