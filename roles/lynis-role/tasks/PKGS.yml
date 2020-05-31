@@ -18,9 +18,9 @@
     name: debsums, apt-show-versions, acct
     state: present
 
-- name: ACCT-9622 acct, ACCT-9626 sysstat, ACCT-9632 auditd, FINT-4350 aide, HRDN-7230 chkrootkit, HRDN-7230 malware scanner, CRYP-8005 psuedo random
+- name: ACCT-9622 acct, ACCT-9626 sysstat, ACCT-9632 auditd, FINT-4350 aide, HRDN-7230 chkrootkit, HRDN-7230 malware scanner, CRYP-8005 psuedo random, USB-3000 usbguard
   package:
-    name: acct, sysstat, auditd, aide, chkrootkit, clamav, clamav-daemon, haveged
+    name: acct, sysstat, auditd, aide, chkrootkit, clamav, clamav-daemon, haveged, usbguard
     state: present    
 
 - name: ClamAV Daemons Active
@@ -32,15 +32,23 @@
     - "clamav-daemon"
     - "clamav-freshclam"
 
-
-- name: HAveged Daemons Active
+- name: Haveged Daemons Active
   service:
     name: "{{ item }}"
     state: started
     enabled: yes
   with_items:
     - "haveged"
+
+- name: USBGuard Active
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - "usbguard"
         
+
 - name: HTTP-6640 Install Apache mod_evasive, HTTP-6643 Install Apache modsecurity
   package:
     name:

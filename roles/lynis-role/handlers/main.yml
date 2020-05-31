@@ -21,6 +21,11 @@
     name: ntp
     state: restarted    
 
+- name: restart usbguard
+  service:
+    name: usbguard
+    state: restarted 
+
 - name: reboot
   reboot:
     msg: Ansible triggered reboot

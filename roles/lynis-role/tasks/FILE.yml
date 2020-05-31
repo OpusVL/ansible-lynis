@@ -1,0 +1,88 @@
+---
+# Filesystem
+
+# - name: FILE-6430 Consider disabling unused kernel modules
+#   lineinfile:
+#     dest: /etc/modprobe.d/blacklist.conf
+#     line: "install {{ item }} /bin/true"
+#     owner: root
+#     group: root
+#     mode: 0644
+#     state: present
+#     create: yes
+#   with_lines: 
+#     - "lsmod | awk '$3 == \"0\"' | cut -d' ' -f1 | grep -v virtio"
+#   register: file6430
+
+# - name: Attempt to remove the unused modules
+#   command: "modprobe -r {{ item }}"
+#   ignore_errors: true
+#   when: file6430.changed
+#   with_lines: 
+#     - "lsmod | awk '$3 == \"0\"' | cut -d' ' -f1 | grep -v virtio"
+#   notify:
+#     - reboot
+
+- name: FILE-6430 Consider disabling unused kernel modules
+  lineinfile:
+    dest: /etc/modprobe.d/blacklist.conf
+    line: "install {{ item }} /bin/true"
+    owner: root
+    group: root
+    mode: 0644
+    state: present
+    create: yes
+  with_items: 
+    - freevxfs
+    - hfs
+    - hfsplus
+    - jffs2
+    - squashfs
+    - udf
+  register: file6430
+
+- name: FILE-6430 blacklist unused kernel modules
+  lineinfile:
+    dest: /etc/modprobe.d/blacklist.conf
+    line: "blacklist {{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+    state: present
+    create: yes
+  with_items: 
+    - freevxfs
+    - hfs
+    - hfsplus
+    - jffs2
+    - squashfs
+    - udf
+
+- name: Attempt to remove the unused modules
+  command: "modprobe -r {{ item }}"
+  ignore_errors: true
+  when: file6430.changed
+  with_items: 
+    - freevxfs
+    - hfs
+    - hfsplus
+    - jffs2
+    - squashfs
+    - udf
+  notify:
+    - reboot    
+
+- name: FILE-7524 File permissions
+  file:
+    path: "{{ item.path }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { path: "/etc/ssh/sshd_config", mode: 600 }
+    - { path: "/etc/crontab", mode: 600 }
+    - { path: "/etc/cron.d", mode: 700 }
+    - { path: "/etc/cron.daily", mode: 700 }
+    - { path: "/etc/cron.hourly", mode: 700 }
+    - { path: "/etc/cron.weekly", mode: 700 }
+    - { path: "/etc/cron.monthly", mode: 700 }
+
+  

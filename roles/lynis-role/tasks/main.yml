@@ -26,8 +26,17 @@
 - name: STRG Storage Devices
   import_tasks: STRG.yml
 
+- name: USB Devices
+  import_tasks: USB.yml
+
 - name: TIME Time Services
   import_tasks: TIME.yml
 
 - name: NETW Networking
   import_tasks: NETW.yml
+
+- name: FILE Filesystem
+  import_tasks: FILE.yml
+
+- name: HOME folders
+  import_tasks: HOME.yml  

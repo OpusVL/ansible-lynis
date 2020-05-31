@@ -1,8 +1,30 @@
 ---
+# Storage
+  
 - name: STRG-1846 |Disable drivers like firewire storage when not used
   lineinfile:
-    path: /etc/modprobe.d/blacklist.conf
-    line: 'blacklist firewire_core'
-    regexp:  '^blacklist firewire_core'
+    dest: /etc/modprobe.d/blacklist.conf
+    line: "install {{ item }} /bin/true"
+    owner: root
+    group: root
+    mode: 0644
     state: present
+    create: yes
+  with_items:
+    - firewire-core
+    - firewire-net
+    - firewire-ohci
+    - firewire-sbp2
+  register: strg1846
 
+- name: Attempt to remove the firewire modules
+  command: "modprobe -r {{ item }}"
+  ignore_errors: true
+  when: strg1846.changed
+  with_items:
+    - firewire-core
+    - firewire-net
+    - firewire-ohci
+    - firewire-sbp2
+  notify:
+    - reboot

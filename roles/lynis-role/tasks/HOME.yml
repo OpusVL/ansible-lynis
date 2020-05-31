@@ -1,0 +1,9 @@
+---
+# Home
+
+- name: HOME-9304 Home directories permissions are 750 or more restrictive
+  file:
+    path: "{{ item }}"
+    mode: "0750"
+  with_lines:
+    - "find /home -maxdepth 1 -mindepth 1 -type d | grep -v \"lost+found\""

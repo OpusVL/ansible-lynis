@@ -1,0 +1,41 @@
+---
+  # USB
+  
+- name: USB-1000 Disable drivers like USB storage when not used
+  lineinfile:
+    dest: /etc/modprobe.d/blacklist.conf
+    line: "install {{ item }} /bin/true"
+    owner: root
+    group: root
+    mode: 0644
+    state: present
+    create: yes
+  with_items:
+    - usb-storage
+  register: usb1000
+
+- name: Attempt to remove the usb-storage module
+  command: "modprobe -r {{ item }}"
+  ignore_errors: true
+  when: usb1000.changed
+  with_items:
+    - usb-storage
+  notify:
+    - reboot
+
+- name: USB-3000 PresentControllerPolicy = apply-policy
+  lineinfile:
+    path: /etc/usbguard/usbguard-daemon.conf
+    line: "PresentControllerPolicy=apply-policy"
+    regexp: "^[#]?PresentControllerPolicy"
+    state: present
+  notify:
+    - restart usbguard    
+
+# - name: USB-2000 USB authorizations
+#   lineinfile:
+#     path: "{{ item }}/authorized_default"
+#     line: "0"
+#     regexp: '^[1]$'
+#   with_lines:
+#     - "find /sys/bus/usb/devices -iname 'usb*' -maxdepth 1"
