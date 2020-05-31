@@ -1,0 +1,31 @@
+---
+# Networking
+
+
+  - name: NETW-3200 Determine if protocol is really needed
+    lineinfile:
+      dest: /etc/modprobe.d/blacklist.conf
+      line: "install {{ item }} /bin/true"
+      owner: root
+      group: root
+      mode: 0644
+      state: present
+      create: yes
+    with_items:
+      - dccp
+      - sctp
+      - rds
+      - tipc
+    register: netw3200
+
+  - name: Attempt to remove the protocol module
+    command: "modprobe -r {{ item }}"
+    ignore_errors: true
+    when: netw3200.changed
+    with_items:
+      - dccp
+      - sctp
+      - rds
+      - tipc
+    notify:
+      - reboot
