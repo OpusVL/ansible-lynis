@@ -46,8 +46,7 @@
     state: started
     enabled: yes
   with_items:
-    - "usbguard"
-        
+    - "usbguard"        
 
 - name: HTTP-6640 Install Apache mod_evasive, HTTP-6643 Install Apache modsecurity
   package:
@@ -55,5 +54,7 @@
       - libapache2-mod-evasive
       - libapache2-mod-security2
     state: present
+  when:
+    - "'apache2' in ansible_facts.packages"
   notify:
     - restart apache2

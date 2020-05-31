@@ -28,3 +28,4 @@
     - firewire-sbp2
   notify:
     - reboot
+    

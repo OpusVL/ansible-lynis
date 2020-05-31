@@ -40,3 +40,6 @@
 
 - name: HOME folders
   import_tasks: HOME.yml  
+
+- name: HRDN Hardening
+  import_tasks: HRDN.yml  

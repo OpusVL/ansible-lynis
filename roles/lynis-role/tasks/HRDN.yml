@@ -1,0 +1,12 @@
+---
+# Hardening
+
+- name: HRDN-7222 Harden compilers
+  file:
+    path: "{{ item.path }}"
+    mode: "{{ item.mode }}"
+    owner: root
+    group: root
+  with_items:
+    - { path: "/usr/bin/x86_64-linux-gnu-as", mode: 770 }
+    - { path: "/usr/bin/x86_64-linux-gnu-gcc-8", mode: 770 }
